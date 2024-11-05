@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmap-test1
+  labels:
+    app: configmap-test1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: configmap-test1
+  template:
+    metadata:
+      labels:
+        app: configmap-test1
+    spec:
+      containers:
+        - name: test
+          image: busybox:1.28
+          command:
+            ["sh", "-c", 'echo "The app is running!" && tail -f /dev/null']
+          volumeMounts:
+            - name: config-vol
+              mountPath: /etc/config
+      volumes:
+        - name: config-vol
+          configMap:
+            name: log-config
+            items:
+              - key: log_level
+                path: log_level
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: log-config
+  namespace: default
+data:
+  log_level: INFO

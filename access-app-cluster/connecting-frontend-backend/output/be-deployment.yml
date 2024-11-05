@@ -1,0 +1,35 @@
+Name:                   backend
+Namespace:              default
+CreationTimestamp:      Tue, 05 Nov 2024 16:07:26 +0800
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=hello,tier=backend,track=stable
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=hello
+           tier=backend
+           track=stable
+  Containers:
+   hello:
+    Image:         gcr.io/google-samples/hello-go-gke:1.0
+    Port:          80/TCP
+    Host Port:     0/TCP
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   backend-85587d4d9f (3/3 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  4m4s  deployment-controller  Scaled up replica set backend-85587d4d9f to 3

@@ -1,0 +1,65 @@
+Name:           backend-85587d4d9f
+Namespace:      default
+Selector:       app=hello,pod-template-hash=85587d4d9f,tier=backend,track=stable
+Labels:         app=hello
+                pod-template-hash=85587d4d9f
+                tier=backend
+                track=stable
+Annotations:    deployment.kubernetes.io/desired-replicas: 3
+                deployment.kubernetes.io/max-replicas: 4
+                deployment.kubernetes.io/revision: 1
+Controlled By:  Deployment/backend
+Replicas:       3 current / 3 desired
+Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=hello
+           pod-template-hash=85587d4d9f
+           tier=backend
+           track=stable
+  Containers:
+   hello:
+    Image:         gcr.io/google-samples/hello-go-gke:1.0
+    Port:          80/TCP
+    Host Port:     0/TCP
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  42m   replicaset-controller  Created pod: backend-85587d4d9f-mfwbh
+  Normal  SuccessfulCreate  42m   replicaset-controller  Created pod: backend-85587d4d9f-xchnk
+  Normal  SuccessfulCreate  42m   replicaset-controller  Created pod: backend-85587d4d9f-45l6q
+
+
+Name:           hello-world-6dc5ddc57f
+Namespace:      default
+Selector:       pod-template-hash=6dc5ddc57f,run=load-balancer-example
+Labels:         pod-template-hash=6dc5ddc57f
+                run=load-balancer-example
+Annotations:    deployment.kubernetes.io/desired-replicas: 2
+                deployment.kubernetes.io/max-replicas: 3
+                deployment.kubernetes.io/revision: 1
+Controlled By:  Deployment/hello-world
+Replicas:       2 current / 2 desired
+Pods Status:    2 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  pod-template-hash=6dc5ddc57f
+           run=load-balancer-example
+  Containers:
+   hello-world:
+    Image:         us-docker.pkg.dev/google-samples/containers/gke/hello-app:2.0
+    Port:          8080/TCP
+    Host Port:     0/TCP
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age    From                   Message
+  ----    ------            ----   ----                   -------
+  Normal  SuccessfulCreate  6m43s  replicaset-controller  Created pod: hello-world-6dc5ddc57f-sdpcv
+  Normal  SuccessfulCreate  6m43s  replicaset-controller  Created pod: hello-world-6dc5ddc57f-2csqf
