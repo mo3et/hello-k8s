@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  special.how: very
+  special.type: charm
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2024-11-04T10:15:02Z"
+  name: special-config
+  namespace: default
+  resourceVersion: "133277"
+  uid: f7ce640e-e479-4025-bad4-8d49b865f560

@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+  allowed: '"true"'
+  color: purple
+  enemies: aliens
+  how: fairlyNice
+  lives: "3"
+  textmode: "true"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2024-11-04T10:10:15Z"
+  name: config-multi-env-files
+  namespace: default
+  resourceVersion: "133020"
+  uid: a69fa9c3-2915-4d19-a49b-fd3fd0717b23
