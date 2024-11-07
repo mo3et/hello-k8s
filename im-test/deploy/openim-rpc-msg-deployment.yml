@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msg-rpc-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msg-rpc-server
+  template:
+    metadata:
+      labels:
+        app: msg-rpc-server
+    spec:
+      containers:
+        - name: msg-rpc-server-container
+          # image: user-rpc-server:latest
+          image: op-server:v3.9
+          imagePullPolicy: Never
+          env:
+            # - name: MONGO_USER
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mongo-secret
+            #       key: mongo_openim_username
+            # - name: MONGO_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mongo-secret
+            #       key: mongo_openim_password
+            - name: DEPLOYMENT_TYPE
+              value: "kubernetes"
+            - name: CONFIG_PATH
+              value: "/config"
+          volumeMounts:
+            - name: openim-config
+              mountPath: "/config"
+              readOnly: true
+          ports:
+            - containerPort: 10280
+            - containerPort: 12280
+      volumes:
+        - name: openim-config
+          configMap:
+            name: openim-config

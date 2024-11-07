@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-rpc-server
+  name: auth-rpc-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: user-rpc-server
+      app: auth-rpc-server
   template:
     metadata:
       labels:
-        app: user-rpc-server
+        app: auth-rpc-server
     spec:
       containers:
-        - name: user-rpc-server-container
+        - name: auth-rpc-server-container
           image: user-rpc-server:latest
           imagePullPolicy: Never
           env:
@@ -36,8 +36,8 @@ spec:
               mountPath: "/config"
               readOnly: true
           ports:
-            - containerPort: 10310
-            - containerPort: 20100
+            - containerPort: 10200
+            - containerPort: 12200
       volumes:
         - name: openim-config
           configMap:

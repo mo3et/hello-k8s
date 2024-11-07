@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openim-msggateway
+  name: openim-msggateway-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: openim-msggateway
+      app: openim-msggateway-server
   template:
     metadata:
       labels:
-        app: openim-msggateway
+        app: openim-msggateway-server
     spec:
       containers:
         - name: openim-msggateway-container

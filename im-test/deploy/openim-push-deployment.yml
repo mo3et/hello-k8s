@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openim-push
+  name: openim-push-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: openim-push
+      app: openim-push-server
   template:
     metadata:
       labels:
-        app: openim-push
+        app: openim-push-server
     spec:
       containers:
         - name: openim-push-container
