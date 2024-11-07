@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka
+  labels:
+    app: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+        - name: kafka
+          image: bitnami/kafka:3.5.1
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 9092 # PLAINTEXT
+            - containerPort: 9093 # CONTROLLER
+            - containerPort: 9094 # EXTERNAL
+          volumeMounts:
+            - name: kafka-scripts
+              mountPath: /opt/bitnami/kafka/create-topic.sh
+              subPath: create-topic.sh
+            - name: kafka-data
+              mountPath: /bitnami/kafka
+          command:
+            - /bin/sh
+            - "-c"
+            - |
+              /opt/bitnami/scripts/kafka/run.sh & /opt/bitnami/kafka/create-topic.sh; wait
+          env:
+            - name: TZ
+              value: "Asia/Shanghai"
+            - name: KAFKA_CFG_NODE_ID
+              value: "0"
+            - name: KAFKA_CFG_PROCESS_ROLES
+              value: "controller,broker"
+            - name: KAFKA_CFG_CONTROLLER_QUORUM_VOTERS
+              value: "0@kafka:9093"
+            - name: KAFKA_CFG_LISTENERS
+              value: "PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094"
+            - name: KAFKA_CFG_ADVERTISED_LISTENERS
+              value: "PLAINTEXT://kafka:9092,EXTERNAL://kafka-service:19094"
+            - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
+              value: "CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+            - name: KAFKA_CFG_CONTROLLER_LISTENER_NAMES
+              value: "CONTROLLER"
+      volumes:
+        - name: kafka-scripts
+          configMap:
+            name: openim-config
+            items:
+              - key: create-topic.sh
+                path: create-topic.sh
+        - name: kafka-data
+          persistentVolumeClaim:
+            claimName: kafka-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kafka-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
