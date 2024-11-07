@@ -64,6 +64,7 @@ spec:
             items:
               - key: mongo-init.sh
                 path: mongo-init.sh
+                mode: 0755
         - name: mongo-storage
           persistentVolumeClaim:
             claimName: mongo-pvc

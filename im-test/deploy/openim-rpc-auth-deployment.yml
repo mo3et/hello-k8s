@@ -17,16 +17,16 @@ spec:
           image: user-rpc-server:latest
           imagePullPolicy: Never
           env:
-            # - name: MONGO_USER
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: mongo-secret
-            #       key: mongo_openim_username
-            # - name: MONGO_PASSWORD
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: mongo-secret
-            #       key: mongo_openim_password
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo_openim_username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo_openim_password
             - name: DEPLOYMENT_TYPE
               value: "kubernetes"
             - name: CONFIG_PATH

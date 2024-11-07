@@ -1,7 +1,7 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: kafka
+  name: kafka-statefulset
   labels:
     app: kafka
 spec:
@@ -16,12 +16,12 @@ spec:
     spec:
       containers:
         - name: kafka
-          image: bitnami/kafka:3.5.1
+          image: bitnami/kafka:3.6.0
           imagePullPolicy: IfNotPresent
-          resources:
-            limits:
-              memory: "512Mi"
-              cpu: "500m"
+          # resources:
+          #   limits:
+          #     memory: "512Mi"
+          #     cpu: "500m"
           ports:
             - containerPort: 9092 # PLAINTEXT
             - containerPort: 9093 # CONTROLLER
@@ -61,6 +61,7 @@ spec:
             items:
               - key: create-topic.sh
                 path: create-topic.sh
+                mode: 0755
         - name: kafka-data
           persistentVolumeClaim:
             claimName: kafka-pvc

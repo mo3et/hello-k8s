@@ -41,9 +41,9 @@ spec:
               "--appendonly",
               "yes",
             ]
-          sysctls:
-            - name: net.core.somaxconn
-              value: "1024"
+          # sysctls:
+          #   - name: net.core.somaxconn
+          #     value: "1024"
       volumes:
         - name: redis-config-volume
           configMap:

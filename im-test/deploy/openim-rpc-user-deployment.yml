@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: user-rpc-server-container
-          image: user-rpc-server:latest
+          # image: user-rpc-server:latest
+          image: op-server:v3.9
           imagePullPolicy: Never
           env:
             # - name: MONGO_USER
@@ -36,8 +37,8 @@ spec:
               mountPath: "/config"
               readOnly: true
           ports:
-            - containerPort: 10310
-            - containerPort: 20100
+            - containerPort: 10320
+            - containerPort: 12320
       volumes:
         - name: openim-config
           configMap:
