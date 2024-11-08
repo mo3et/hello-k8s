@@ -29,21 +29,15 @@ spec:
           volumeMounts:
             - name: redis-data
               mountPath: /data
-            - name: redis-config-volume
-              mountPath: /usr/local/redis/config/redis.conf
-              subPath: redis.conf
+            # - name: redis-config-volume
+            #   mountPath: /usr/local/redis/config/redis.conf
+            #   subPath: redis.conf
           command:
             [
-              "redis-server",
-              "/usr/local/redis/config/redis.conf",
-              "--requirepass",
-              "${redis-password}",
-              "--appendonly",
-              "yes",
+              "/bin/sh",
+              "-c",
+              'redis-server  --requirepass "$REDIS_PASSWORD" --appendonly yes',
             ]
-          # sysctls:
-          #   - name: net.core.somaxconn
-          #     value: "1024"
       volumes:
         - name: redis-config-volume
           configMap:
@@ -62,7 +56,6 @@ spec:
   resources:
     requests:
       storage: 5Gi
-
 ---
 apiVersion: v1
 kind: Secret
@@ -70,4 +63,4 @@ metadata:
   name: redis-secret
 type: Opaque
 data:
-  redis-password: b3BlbklNMTIz # "openIM123" is base 64 code
+  redis-password: b3BlbklNMTIz # "openIM123" in base64

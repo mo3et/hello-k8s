@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: openim-push-container
-          image: ghcr.io/openimsdk/openim-msggateway:release-v3.3
+          image: op-server:v3.9
           env:
             - name: CONFIG_PATH
               value: "/config"

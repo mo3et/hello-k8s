@@ -15,8 +15,14 @@ spec:
       containers:
         - name: friend-rpc-server-container
           # image: user-rpc-server:latest
-          image: op-server:v3.9
+          image: op-server:v3.10
           imagePullPolicy: Never
+          # command:
+          #   [
+          #     "/bin/bash",
+          #     "-c",
+          #     "/openim-server/_output/bin/platforms/linux/arm64/openim-rpc-friend -i 0 -c /config/",
+          #   ]
           env:
             # - name: MONGO_USER
             #   valueFrom:
@@ -32,6 +38,11 @@ spec:
               value: "kubernetes"
             - name: CONFIG_PATH
               value: "/config"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
           volumeMounts:
             - name: openim-config
               mountPath: "/config"
