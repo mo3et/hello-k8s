@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openim-msggateway-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openim-msggateway-server
+  template:
+    metadata:
+      labels:
+        app: openim-msggateway-server
+    spec:
+      containers:
+        - name: openim-msggateway-container
+          image: ghcr.io/openimsdk/openim-msggateway:release-v3.3
+          env:
+            - name: CONFIG_PATH
+              value: "/config"
+            - name: DEPLOYMENT_TYPE
+              value: "kubernetes"
+          volumeMounts:
+            - name: openim-config
+              mountPath: "/config"
+              readOnly: true
+      volumes:
+        - name: openim-config
+          configMap:
+            name: openim-config
