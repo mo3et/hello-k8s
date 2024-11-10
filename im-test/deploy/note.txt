@@ -1,0 +1,50 @@
+curl -X POST http://127.0.0.1:10002//group/quit_group \
+-H "Content-Type: application/json" \
+-H "operationID: yourOperationID" \
+-d '{
+ "groupID": "3926645279",
+ "userID": "2882899447"
+}'
+
+
+curl -X POST http://127.0.0.1:10002/auth/get_admin_token \
+-H "Content-Type: application/json" \
+-H "operationID: adminIm" \
+-d '{
+  "secret": "openIM123",
+  "platformID": 10,
+  "userID": "imAdmin"
+}
+'
+
+--------------------------------------------
+TOKEN
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJpbUFkbWluIiwiUGxhdGZvcm1JRCI6MTAsImV4cCI6MTczOTAwOTM2NiwibmJmIjoxNzMxMjMzMDY2LCJpYXQiOjE3MzEyMzMzNjZ9.mtuUbZ26jNdbdwj52UBBUqpw7W6ij_sZ5MsJ0QlFJPU
+
+--------------------------------------------
+
+curl -X POST http://127.0.0.1:10002/user/user_register \
+-H "Content-Type: application/json" \
+-H "operationID: imAdmin" \
+-H "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJpbUFkbWluIiwiUGxhdGZvcm1JRCI6MTAsImV4cCI6MTczOTAwOTM2NiwibmJmIjoxNzMxMjMzMDY2LCJpYXQiOjE3MzEyMzMzNjZ9.mtuUbZ26jNdbdwj52UBBUqpw7W6ij_sZ5MsJ0QlFJPU" \
+-d '{
+  "users": [
+    {
+      "userID": "337854818",
+      "nickname": "RUOK",
+      "faceURL": ""
+    }
+  ]
+}'
+
+
+
+curl -X POST http://127.0.0.1:10002/user/account_check \
+-H "Content-Type: application/json" \
+-H "operationID: imAdmin" \
+-H "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJpbUFkbWluIiwiUGxhdGZvcm1JRCI6MTAsImV4cCI6MTczOTAwOTM2NiwibmJmIjoxNzMxMjMzMDY2LCJpYXQiOjE3MzEyMzMzNjZ9.mtuUbZ26jNdbdwj52UBBUqpw7W6ij_sZ5MsJ0QlFJPU" \
+-d '{
+"checkUserIDs": ["11111111"]
+}
+'

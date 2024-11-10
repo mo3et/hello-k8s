@@ -14,19 +14,19 @@ spec:
     spec:
       containers:
         - name: auth-rpc-server-container
-          image: op-server:v3.9
+          image: op-auth:v3.9
           imagePullPolicy: Never
           env:
-            - name: MONGO_USER
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-secret
-                  key: mongo_openim_username
-            - name: MONGO_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-secret
-                  key: mongo_openim_password
+            # - name: MONGO_USER
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mongo-secret
+            #       key: mongo_openim_username
+            # - name: MONGO_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mongo-secret
+            #       key: mongo_openim_password
             - name: DEPLOYMENT_TYPE
               value: "kubernetes"
             - name: CONFIG_PATH

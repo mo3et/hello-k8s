@@ -6,16 +6,16 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: user-api
+      app: openim-api
   template:
     metadata:
       labels:
-        app: user-api
+        app: openim-api
     spec:
       containers:
-        - name: user-api-container
+        - name: openim-api-container
           # image: user-api-server:latest
-          image: ghcr.io/openimsdk/openim-server:sha-047fa33
+          image: op-api:v3.9
           # imagePullPolicy: Never
           env:
             - name: CONFIG_PATH

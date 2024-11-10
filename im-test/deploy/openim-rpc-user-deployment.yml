@@ -15,7 +15,8 @@ spec:
       containers:
         - name: user-rpc-server-container
           # image: user-rpc-server:latest
-          image: op-server:v3.9
+          # image: op-server:v3.9
+          image: op-user:v3.9
           imagePullPolicy: Never
           env:
             # - name: MONGO_USER
