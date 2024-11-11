@@ -6,13 +6,12 @@ spec:
   selector:
     app: openim-msggateway-server
   ports:
-    # TODO Need check port!!
-    - name: http-10200
+    - name: http-10001
       protocol: TCP
-      port: 10200
-      targetPort: 10200
-    - name: prometheus-12200
+      port: 10001
+      targetPort: 10001
+    - name: prometheus-12001
       protocol: TCP
-      port: 12200
-      targetPort: 12200
+      port: 12001
+      targetPort: 12001
   type: ClusterIP

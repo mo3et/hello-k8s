@@ -45,6 +45,30 @@ curl -X POST http://127.0.0.1:10002/user/account_check \
 -H "operationID: imAdmin" \
 -H "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJpbUFkbWluIiwiUGxhdGZvcm1JRCI6MTAsImV4cCI6MTczOTAwOTM2NiwibmJmIjoxNzMxMjMzMDY2LCJpYXQiOjE3MzEyMzMzNjZ9.mtuUbZ26jNdbdwj52UBBUqpw7W6ij_sZ5MsJ0QlFJPU" \
 -d '{
-"checkUserIDs": ["11111111"]
+"checkUserIDs": ["337854818"]
 }
 '
+
+
+----
+
+➜ kl openim-crontask-5646c446d7-g6xr5 -f
+[2024-11-10 16:12:07 UTC] Starting tools primarily involves component verification and other preparatory tasks.
+Starting /openim-server/_output/bin/tools/linux/arm64/check-free-memory -c /openim-server/config/
+System available memory is sufficient: 6.41GB
+Starting /openim-server/_output/bin/tools/linux/arm64/check-free-memory -c /openim-server/config/ successfully
+Starting /openim-server/_output/bin/tools/linux/arm64/seq -c /openim-server/config/
+[seq] seq data has been converted
+seq task success!
+Starting /openim-server/_output/bin/tools/linux/arm64/seq -c /openim-server/config/ successfully
+[2024-11-10 16:12:07 UTC] All tools executed successfully
+[2024-11-10 16:12:07 UTC] Starting services involves multiple RPCs and APIs and may take some time. Please be patient
+Starting /openim-server/_output/bin/platforms/linux/arm64/openim-crontask -i 0 -c /config/
+[2024-11-10 16:12:07 UTC] All services are running normally.
+[2024-11-10 16:12:07 UTC] Display details of the ports listened to by the service:
+2024-11-10 16:12:07.664	INFO	[PID:1499]     	openim-crontask          	[3.8.1]                       	[tools/cron_task.go:45]                           	CRON-TASK server is initializing{"chatRecordsClearTime": "0 2 * * *", "msgDestructTime": 365}
+2024-11-10 16:12:07.664	INFO	[PID:1499]     	openim-crontask          	[3.8.1]                       	[tools/cron_task.go:50]                           	test	{"discovery": {"Enable":"kubernetes","Etcd":{"RootDirectory":"","Address":null,"Username":"","Password":""},"ZooKeeper":{"Schema":"","Address":null,"Username":"","Password":""}}, "share": {"Secret":"openIM123","RpcRegisterName":{"User":"user-rpc-service:10320","Friend":"friend-rpc-service:10240","Msg":"msg-rpc-service:10280","Push":"openim-push-service","MessageGateway":"openim-msggateway-service","Group":"group-rpc-service:10260","Auth":"auth-rpc-service:10200","Conversation":"conversation-rpc-service:10220","Third":"third-rpc-service:10300"},"IMAdminUserID":["imAdmin"],"MultiLogin":{"Policy":1,"MaxNumOneEnd":30,"CustomizeLoginNum":{"IOS":1,"Android":1,"Windows":1,"OSX":1,"Web":1,"MiniWeb":1,"Linux":1,"APad":1,"IPad":1,"Admin":1}}}, "Get ENV DTYPE": "kubernetes"}
+2024-11-10 16:12:07.665	ERROR	[PID:1499]     	openim-crontask          	[3.8.1]                       	[log/zap.go:136]                                  	Ignored key without a value.	{"ignored": "client"}
+2024-11-10 16:12:07.665	INFO	[PID:1499]     	openim-crontask          	[3.8.1]                       	[tools/cron_task.go:57]                           	t2
+2024-11-10 16:12:07.666	DEBUG	[PID:1499]     	openim-crontask          	[3.8.1]                       	[tools/cron_task.go:137]                          	start cron task                                   	{"opUserID": "imAdmin", "CronExecuteTime": "0 2 * * *"}
+[2024-11-10 16:12:08 UTC] Cmdline: /openim-server/_output/bin/platforms/linux/arm64/openim-crontask -i 0 -c /config/, PID: 1499 is not listening on any ports.

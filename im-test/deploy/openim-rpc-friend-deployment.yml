@@ -15,7 +15,7 @@ spec:
       containers:
         - name: friend-rpc-server-container
           # image: user-rpc-server:latest
-          image: op-server:v3.10
+          image: op-friend:v3.9
           imagePullPolicy: Never
           # command:
           #   [

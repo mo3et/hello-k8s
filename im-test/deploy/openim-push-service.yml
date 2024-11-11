@@ -6,13 +6,12 @@ spec:
   selector:
     app: openim-push-server
   ports:
-    # TODO Need check port!!!
-    - name: http-10200
+    - name: http-10170
       protocol: TCP
-      port: 10200
-      targetPort: 10200
-    - name: prometheus-12200
+      port: 10170
+      targetPort: 10170
+    - name: prometheus-12170
       protocol: TCP
-      port: 12200
-      targetPort: 12200
+      port: 12170
+      targetPort: 12170
   type: ClusterIP

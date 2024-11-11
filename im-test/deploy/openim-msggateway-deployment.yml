@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openim-msgtransfer-server
+  name: openim-msggateway-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: openim-msgtransfer-server
+      app: openim-msggateway-server
   template:
     metadata:
       labels:
-        app: openim-msgtransfer-server
+        app: openim-msggateway-server
     spec:
       containers:
-        - name: openim-msgtransfer-container
-          image: op-server:v3.9
+        - name: openim-msggateway-container
+          image: op-msggateway:v3.9
           env:
             - name: CONFIG_PATH
               value: "/config"
@@ -24,6 +24,9 @@ spec:
             - name: openim-config
               mountPath: "/config"
               readOnly: true
+          ports:
+            - containerPort: 10001
+            - containerPort: 12001
       volumes:
         - name: openim-config
           configMap:

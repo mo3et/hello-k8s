@@ -24,6 +24,9 @@ spec:
             - name: openim-config
               mountPath: "/config"
               readOnly: true
+          ports:
+            - containerPort: 10170
+            - containerPort: 12170
       volumes:
         - name: openim-config
           configMap:

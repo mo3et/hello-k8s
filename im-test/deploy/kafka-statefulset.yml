@@ -15,6 +15,9 @@ spec:
       labels:
         app: kafka
     spec:
+      # 如果需要设置安全上下文，可以取消以下注释并根据需要配置
+      # securityContext:
+      #   fsGroup: 1001
       containers:
         - name: kafka
           image: bitnami/kafka:3.5.1
@@ -30,18 +33,18 @@ spec:
             - containerPort: 9092 # PLAINTEXT
             - containerPort: 9093 # CONTROLLER
             - containerPort: 9094 # EXTERNAL
-          volumeMounts:
-            - name: kafka-scripts
-              mountPath: /opt/bitnami/kafka/create-topic.sh
-              # subPath: create-topic.sh
-            - name: kafka-data
-              mountPath: /bitnami/kafka
-          command:
-            - /bin/sh
-            - "-c"
-            - |
-              # /opt/bitnami/scripts/kafka/run.sh & /opt/bitnami/kafka/create-topic.sh; wait
-              /opt/bitnami/scripts/kafka/run.sh & sleep 60 && /opt/bitnami/kafka/create-topic.sh; wait
+          # command:
+          #   - /bin/bash
+          #   - "-c"
+          #   - |
+          #     # /opt/bitnami/scripts/kafka/run.sh & /opt/bitnami/kafka/create-topic.sh; wait
+          #     # /opt/bitnami/scripts/kafka/entrypoint.sh && /opt/bitnami/scripts/kafka/setup.sh  && /opt/bitnami/scripts/kafka/run.sh
+          #     & while ! echo > /dev/tcp/localhost/9092; do
+          #         echo "Waiting for Kafka to start..."
+          #         sleep 5
+          #       done
+          #       /opt/bitnami/kafka/create-topic.sh
+          #       tail -f /dev/null
           env:
             - name: TZ
               value: "Asia/Shanghai"
@@ -52,24 +55,66 @@ spec:
             - name: KAFKA_CFG_CONTROLLER_QUORUM_VOTERS
               value: "0@kafka-service:9093"
             - name: KAFKA_CFG_LISTENERS
-              value: "PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://kafka-service:19094"
+              value: "PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094"
             - name: KAFKA_CFG_ADVERTISED_LISTENERS
               value: "PLAINTEXT://kafka-service:9092,EXTERNAL://kafka-service:19094"
             - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
               value: "CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT"
             - name: KAFKA_CFG_CONTROLLER_LISTENER_NAMES
               value: "CONTROLLER"
+          volumeMounts:
+            - name: kafka-data
+              mountPath: /bitnami/kafka
+            - name: kafka-scripts
+              mountPath: /opt/bitnami/kafka/create-topic.sh
+              subPath: create-topic.sh
+          # lifecycle:
+          #   postStart:
+          #     exec:
+          #       command:
+          #         - /bin/bash
+          #         - "-c"
+          #         - |
+          #           echo "Waiting for Kafka on port 9092 to be ready..."
+          #           while ! echo > /dev/tcp/localhost/9092; do
+          #             echo "Kafka not ready yet. Retrying in 5 seconds..."
+          #             sleep 5
+          #           done
+          #           echo "Kafka is ready. Creating topics..."
+          #           /opt/bitnami/kafka/create-topic.sh
+        - name: create-topics
+          image: bitnami/kafka:3.5.1 # 使用与 Kafka 主容器相同的镜像
+          command:
+            - /bin/bash
+            - "-c"
+            - |
+              # echo "Waiting for Kafka on port 9092 to be ready..."
+              # until nc -z localhost 9092; do
+              #   echo "Kafka not ready yet. Retrying in 5 seconds..."
+              #   sleep 5
+              # done
+              # echo "Kafka is ready. Creating topics..."
+              /opt/bitnami/kafka/create-topic.sh && \
+              tail -f /dev/null
+
+          volumeMounts:
+            - name: kafka-scripts
+              mountPath: /opt/bitnami/kafka/create-topic.sh
+              subPath: create-topic.sh
+            - name: kafka-data
+              mountPath: /bitnami/kafka
       volumes:
         - name: kafka-scripts
           configMap:
             name: openim-config
+            defaultMode: 0755
             items:
               - key: create-topic.sh
                 path: create-topic.sh
-                mode: 0755
         - name: kafka-data
           persistentVolumeClaim:
             claimName: kafka-pvc
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

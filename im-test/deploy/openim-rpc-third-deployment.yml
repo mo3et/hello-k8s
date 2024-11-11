@@ -15,7 +15,7 @@ spec:
       containers:
         - name: third-rpc-server-container
           # image: user-rpc-server:latest
-          image: op-server:v3.9
+          image: op-third:v3.9
           imagePullPolicy: Never
           env:
             # - name: MONGO_USER
@@ -32,6 +32,16 @@ spec:
               value: "kubernetes"
             - name: CONFIG_PATH
               value: "/config"
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: minio-root-user
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: minio-root-password
           volumeMounts:
             - name: openim-config
               mountPath: "/config"

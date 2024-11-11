@@ -300,14 +300,14 @@ data:
     secret: openIM123
     rpcRegisterName:
       user: user-rpc-service:10320
-      friend: friend-rpc-service
-      msg: msg-rpc-service
+      friend: friend-rpc-service:10240
+      msg: msg-rpc-service:10280
       push: openim-push-service
       messageGateway: openim-msggateway-service
-      group: group-rpc-service
+      group: group-rpc-service:10260
       auth: auth-rpc-service:10200
-      conversation: conversation-rpc-service
-      third: third-rpc-service
+      conversation: conversation-rpc-service:10220
+      third: third-rpc-service:10300
 
     imAdminUserID: ["imAdmin"]
 
@@ -360,15 +360,15 @@ data:
     # Name of the bucket in MinIO
     bucket: openim
     # Access key ID for MinIO authentication
-    accessKeyID: ${MINIO_ACCESS_KEY}
+    accessKeyID: root # ${MINIO_ACCESS_KEY}
     # Secret access key for MinIO authentication
-    secretAccessKey: ${MINIO_SECRET_KEY}
+    secretAccessKey: openIM123 # ${MINIO_SECRET_KEY}
     # Session token for MinIO authentication (optional)
     sessionToken: ""
     # Internal address of the MinIO server
-    internalAddress: localhost:10005
+    internalAddress: minio-service:10005
     # External address of the MinIO server, accessible from outside. Supports both HTTP and HTTPS using a domain name
-    externalAddress: http://external_ip:10005
+    externalAddress: http://minio-service:10005
     # Flag to enable or disable public read access to the bucket
     publicRead: "false"
 
