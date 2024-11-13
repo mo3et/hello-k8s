@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: openim-api-container
-          # image: user-api-server:latest
-          image: op-api:v3.9
+          image: op-api:v3.90
           # imagePullPolicy: Never
           env:
             - name: CONFIG_PATH

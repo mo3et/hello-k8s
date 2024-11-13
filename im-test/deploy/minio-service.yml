@@ -15,4 +15,4 @@ spec:
       protocol: TCP
       port: 19090 # External port for accessing MinIO console
       targetPort: 9090 # Container port for MinIO console
-  type: NodePort # Choose NodePort/ClusterIP/LoadBalancer depending on your requirements
+  type: NodePort

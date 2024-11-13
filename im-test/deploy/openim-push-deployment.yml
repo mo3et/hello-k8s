@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: openim-push-container
-          image: op-server:v3.9
+          image: op-push:v3.9
           env:
             - name: CONFIG_PATH
               value: "/config"
@@ -24,6 +24,10 @@ spec:
             - name: openim-config
               mountPath: "/config"
               readOnly: true
+            - name: notification-config
+              mountPath: "/config/notification.yml"
+              subPath: notification.yml
+              readOnly: true
           ports:
             - containerPort: 10170
             - containerPort: 12170
@@ -31,3 +35,6 @@ spec:
         - name: openim-config
           configMap:
             name: openim-config
+        - name: notification-config
+          configMap:
+            name: notification-config

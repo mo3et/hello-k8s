@@ -14,21 +14,9 @@ spec:
     spec:
       containers:
         - name: user-rpc-server-container
-          # image: user-rpc-server:latest
-          # image: op-server:v3.9
           image: op-user:v3.9
-          imagePullPolicy: Never
+          # imagePullPolicy: Never
           env:
-            # - name: MONGO_USER
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: mongo-secret
-            #       key: mongo_openim_username
-            # - name: MONGO_PASSWORD
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: mongo-secret
-            #       key: mongo_openim_password
             - name: DEPLOYMENT_TYPE
               value: "kubernetes"
             - name: CONFIG_PATH
@@ -37,6 +25,10 @@ spec:
             - name: openim-config
               mountPath: "/config"
               readOnly: true
+            - name: notification-config
+              mountPath: "/config/notification.yml"
+              subPath: notification.yml
+              readOnly: true
           ports:
             - containerPort: 10320
             - containerPort: 12320
@@ -44,3 +36,6 @@ spec:
         - name: openim-config
           configMap:
             name: openim-config
+        - name: notification-config
+          configMap:
+            name: notification-config

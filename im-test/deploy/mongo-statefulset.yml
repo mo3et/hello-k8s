@@ -16,12 +16,11 @@ spec:
       containers:
         - name: mongo
           image: mongo:6.0.2
-          command: [
+          command:
+            [
               "/bin/bash",
               "-c",
-              # "docker-entrypoint.sh mongod --wiredTigerCacheSizeGB 1 --auth & /scripts/mongo-init.sh; wait",
-              # "/scripts/mongo-init.sh; docker-entrypoint.sh mongod --wiredTigerCacheSizeGB 1 --auth",
-              "docker-entrypoint.sh mongod --wiredTigerCacheSizeGB 1 --auth & sleep 15; /scripts/mongo-init.sh; wait",
+              "docker-entrypoint.sh mongod --wiredTigerCacheSizeGB 1 --auth &  /scripts/mongo-init.sh; wait",
             ]
           ports:
             - containerPort: 27017
@@ -69,6 +68,7 @@ spec:
         - name: mongo-storage
           persistentVolumeClaim:
             claimName: mongo-pvc
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
