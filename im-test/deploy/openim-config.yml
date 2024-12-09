@@ -5,6 +5,26 @@ metadata:
 data:
   discovery.yml: |
     enable: "kubernetes"
+
+    kubernetes:
+      namespace: default
+    etcd:
+      rootDirectory: openim
+      address: [ localhost:12379 ]
+      username: ''
+      password: ''
+
+    rpcService:
+      user: user-rpc-service
+      friend: friend-rpc-service
+      msg: msg-rpc-service
+      push: push-rpc-service
+      messageGateway: messageGateway-rpc-service
+      group: group-rpc-service
+      auth: auth-rpc-service
+      conversation: conversation-rpc-service
+      third: third-rpc-service
+
   log.yml: |
     # Log storage path, default is acceptable, change to a full path if modification is needed
     # storageLocation: ../../../../logs/
@@ -300,15 +320,19 @@ data:
   share.yml: |
     secret: openIM123
     rpcRegisterName:
-      user: user-rpc-service:10320
-      friend: friend-rpc-service:10240
-      msg: msg-rpc-service:10280
+      # user: user-rpc-service:10320
+      # friend: friend-rpc-service:10240
+      # msg: msg-rpc-service:10280
+      user: user-rpc-service
+      friend: friend-rpc-service
+      msg: msg-rpc-service
       push: openim-push-service
       messageGateway: openim-msggateway-service
-      group: group-rpc-service:10260
-      auth: auth-rpc-service:10200
-      conversation: conversation-rpc-service:10220
-      third: third-rpc-service:10300
+      group: group-rpc-service
+      # auth: auth-rpc-service:10200
+      auth: auth-rpc-service
+      conversation: conversation-rpc-service
+      third: third-rpc-service
 
     imAdminUserID: ["imAdmin"]
 
@@ -1122,3 +1146,6 @@ data:
   mongo_initdb_database: b3BlbmltX3Yz # base64 for "openim_v3"
   mongo_openim_username: b3BlbklN # base64 for "openIM"
   mongo_openim_password: b3BlbklNMTIz # base64 for "openIM123"
+  # database: b3BlbmltX3Yz # base64 for "openim_v3"
+  # username: b3BlbklN # base64 for "openIM"
+  # password: b3BlbklNMTIz # base64 for "openIM123"

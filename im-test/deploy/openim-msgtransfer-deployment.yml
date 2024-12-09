@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: openim-msgtransfer-container
-          image: op-msgtransfer:v3.9
+          image: op-msgtransfer:v3.15
           env:
             - name: CONFIG_PATH
               value: "/config"

@@ -9,7 +9,7 @@ curl -X POST http://127.0.0.1:10002//group/quit_group \
 
 curl -X POST http://127.0.0.1:10002/auth/get_admin_token \
 -H "Content-Type: application/json" \
--H "operationID: adminIm" \
+-H "operationID: imAdmin" \
 -d '{
   "secret": "openIM123",
   "platformID": 10,
@@ -22,12 +22,14 @@ TOKEN
 
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJpbUFkbWluIiwiUGxhdGZvcm1JRCI6MTAsImV4cCI6MTczOTAwOTM2NiwibmJmIjoxNzMxMjMzMDY2LCJpYXQiOjE3MzEyMzMzNjZ9.mtuUbZ26jNdbdwj52UBBUqpw7W6ij_sZ5MsJ0QlFJPU
 
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJpbUFkbWluIiwiUGxhdGZvcm1JRCI6MTAsImV4cCI6MTc0MTM0MTk0NiwiaWF0IjoxNzMzNTY1OTQxfQ.FrBcX-diddB3cPKGEFt5OadxGWUmP-IZe1nTLWtklp4
 --------------------------------------------
 
 curl -X POST http://127.0.0.1:10002/user/user_register \
 -H "Content-Type: application/json" \
 -H "operationID: imAdmin" \
--H "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJpbUFkbWluIiwiUGxhdGZvcm1JRCI6MTAsImV4cCI6MTczOTAwOTM2NiwibmJmIjoxNzMxMjMzMDY2LCJpYXQiOjE3MzEyMzMzNjZ9.mtuUbZ26jNdbdwj52UBBUqpw7W6ij_sZ5MsJ0QlFJPU" \
+-H "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJpbUFkbWluIiwiUGxhdGZvcm1JRCI6MTAsImV4cCI6MTc0MTM0MTk0NiwiaWF0IjoxNzMzNTY1OTQxfQ.FrBcX-diddB3cPKGEFt5OadxGWUmP-IZe1nTLWtklp4" \
 -d '{
   "users": [
     {

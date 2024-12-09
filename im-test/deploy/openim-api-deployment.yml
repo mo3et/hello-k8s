@@ -14,13 +14,33 @@ spec:
     spec:
       containers:
         - name: openim-api-container
-          image: op-api:v3.90
+          image: op-api:v3.14
+          # image: op-api:v3.208
+          # image: op-api:v3.378 # old discovery
           # imagePullPolicy: Never
           env:
             - name: CONFIG_PATH
               value: "/config"
-            - name: DEPLOYMENT_TYPE
-              value: "kubernetes"
+            # - name: DEPLOYMENT_TYPE
+            #   value: "kubernetes"
+            - name: IMENV_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
+
+            - name: IMENV_MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo_openim_password
+
+            - name: IMENV_MONGODB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo_openim_username
+
           volumeMounts:
             - name: openim-config
               mountPath: "/config"
