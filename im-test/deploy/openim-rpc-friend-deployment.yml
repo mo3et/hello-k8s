@@ -39,6 +39,3 @@ spec:
         - name: openim-config
           configMap:
             name: openim-config
-        - name: notification-config
-          configMap:
-            name: notification-config

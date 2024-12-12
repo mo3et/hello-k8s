@@ -33,7 +33,6 @@ spec:
               mountPath: "/config"
               readOnly: true
           ports:
-            # - containerPort: 15200
             - containerPort: 12020
       volumes:
         - name: openim-config

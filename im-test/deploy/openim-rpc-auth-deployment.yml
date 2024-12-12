@@ -15,25 +15,14 @@ spec:
       containers:
         - name: auth-rpc-server-container
           image: op-auth:v3.20
-          # image: op-auth:v3.04 # old grpc
-          imagePullPolicy: Never
           env:
-            # - name: DEPLOYMENT_TYPE
-            #   value: "kubernetes"
             - name: CONFIG_PATH
               value: "/config"
-
             - name: IMENV_REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: redis-secret
                   key: redis-password
-
-            - name: IMENV_MONGODB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-secret
-                  key: mongo_openim_password
           volumeMounts:
             - name: openim-config
               mountPath: "/config"
