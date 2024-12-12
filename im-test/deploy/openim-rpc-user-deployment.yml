@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-rpc-server-container
-          image: op-user:v3.15
+          image: op-user:v3.20
           # image: op-user:v3.03
           # imagePullPolicy: Never
           env:

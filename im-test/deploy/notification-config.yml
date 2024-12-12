@@ -16,6 +16,18 @@ data:
       offlinePush:
         # Enables or disables offline push notifications.
         enable: false
+    groupCreated:
+      isSendMsg: true
+    # Reliability level of the message sending.
+    # Set to 1 to send only when online, 2 for guaranteed delivery.
+      reliabilityLevel: 1
+    # This setting is effective only when 'isSendMsg' is true.
+    # It controls whether to count unread messages.
+      unreadCount: false
+    # Configuration for offline push notifications.
+      offlinePush:
+        # Enables or disables offline push notifications.
+        enable: false
         # Title for the notification when a group is created.
         title: create group title
         # Description for the notification.
@@ -73,7 +85,6 @@ data:
         title: groupApplicationRejected title
         desc: groupApplicationRejected desc
         ext: groupApplicationRejected ext
-
 
     groupOwnerTransferred:
       isSendMsg: true

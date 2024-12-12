@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth-rpc-server-container
-          image: op-auth:v3.15
+          image: op-auth:v3.20
           # image: op-auth:v3.04 # old grpc
           imagePullPolicy: Never
           env:

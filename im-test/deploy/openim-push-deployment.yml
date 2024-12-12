@@ -14,19 +14,18 @@ spec:
     spec:
       containers:
         - name: openim-push-container
-          image: op-push:v3.9
+          image: op-push:v3.21
           env:
             - name: CONFIG_PATH
               value: "/config"
-            - name: DEPLOYMENT_TYPE
-              value: "kubernetes"
+            - name: IMENV_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
           volumeMounts:
             - name: openim-config
               mountPath: "/config"
-              readOnly: true
-            - name: notification-config
-              mountPath: "/config/notification.yml"
-              subPath: notification.yml
               readOnly: true
           ports:
             - containerPort: 10170

@@ -14,15 +14,10 @@ spec:
     spec:
       containers:
         - name: openim-api-container
-          image: op-api:v3.14
-          # image: op-api:v3.208
-          # image: op-api:v3.378 # old discovery
-          # imagePullPolicy: Never
+          image: op-api:v3.20
           env:
             - name: CONFIG_PATH
               value: "/config"
-            # - name: DEPLOYMENT_TYPE
-            #   value: "kubernetes"
             - name: IMENV_REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
