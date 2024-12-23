@@ -1,21 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chat-api-server
+  name: web-front-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chat-api-server
+      app: web-front-server
   template:
     metadata:
       labels:
-        app: chat-api-server
+        app: web-front-server
     spec:
       containers:
-        - name: openim-chat-api-container
-          # image: opchat-chat-api:v3.10
-          image: opchat-chat-api:v3.8
+        - name: openim-web-front-container
+          image: openim/openim-web-front:release-v3.8.1
           env:
             - name: CONFIG_PATH
               value: "/config"
@@ -29,18 +28,13 @@ spec:
                 secretKeyRef:
                   name: mongo-secret
                   key: mongo_openim_password
-            - name: CHATENV_SHARE_OPENIM_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: share-secret
-                  key: openim-secret
 
           volumeMounts:
             - name: openim-chat-config
               mountPath: "/config"
               readOnly: true
           ports:
-            - containerPort: 10008
+            - containerPort: 30200
       volumes:
         - name: openim-chat-config
           configMap:

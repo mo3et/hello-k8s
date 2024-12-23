@@ -446,7 +446,7 @@ data:
     # Internal address of the MinIO server
     internalAddress: minio-service:10005
     # External address of the MinIO server, accessible from outside. Supports both HTTP and HTTPS using a domain name
-    externalAddress: http://minio-service:10005
+    externalAddress: http://192.168.49.2:32520
     # Flag to enable or disable public read access to the bucket
     publicRead: "false"
 
