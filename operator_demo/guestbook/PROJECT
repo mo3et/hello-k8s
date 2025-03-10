@@ -6,15 +6,5 @@ domain: operator.demo
 layout:
 - go.kubebuilder.io/v4
 projectName: guestbook
-repo: hello-k8s/guestbook
-resources:
-- api:
-    crdVersion: v1
-    namespaced: true
-  controller: true
-  domain: operator.demo
-  group: webapp
-  kind: Guestbook
-  path: hello-k8s/guestbook/api/v1
-  version: v1
+repo: github.com/mo3et/hello-k8s/guestbook
 version: "3"
