@@ -29,13 +29,22 @@ type GuestbookSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of Guestbook. Edit guestbook_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Foo      string `json:"foo,omitempty"`
+	Replicas int32  `json:"replicas,omitempty"`
+	Image    string `json:"image,omitempty"`
+
+	Hello string `json:"hello,omitempty"`
+	IsMe  bool   `json:"isMe,omitempty"`
 }
 
 // GuestbookStatus defines the observed state of Guestbook.
 type GuestbookStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	AvailableReplicas int32 `json:"availableReplicas,omitempty"`
+	AvailablePods     int32 `json:"availablePods,omitempty"`
+	AvailableServices int32 `json:"availableServices,omitempty"`
 }
 
 // +kubebuilder:object:root=true

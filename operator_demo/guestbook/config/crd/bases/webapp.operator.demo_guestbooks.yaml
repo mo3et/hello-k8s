@@ -43,9 +43,28 @@ spec:
                 description: Foo is an example field of Guestbook. Edit guestbook_types.go
                   to remove/update
                 type: string
+              hello:
+                type: string
+              image:
+                type: string
+              isMe:
+                type: boolean
+              replicas:
+                format: int32
+                type: integer
             type: object
           status:
             description: GuestbookStatus defines the observed state of Guestbook.
+            properties:
+              availablePods:
+                format: int32
+                type: integer
+              availableReplicas:
+                format: int32
+                type: integer
+              availableServices:
+                format: int32
+                type: integer
             type: object
         type: object
     served: true
