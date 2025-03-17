@@ -29,12 +29,26 @@ type GuestbookSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of Guestbook. Edit guestbook_types.go to remove/update
-	Foo      string `json:"foo,omitempty"`
+	// Foo      string `json:"foo,omitempty"`
+
 	Replicas int32  `json:"replicas,omitempty"`
 	Image    string `json:"image,omitempty"`
 
-	Hello string `json:"hello,omitempty"`
-	IsMe  bool   `json:"isMe,omitempty"`
+	// Hello string `json:"hello,omitempty"`
+	// IsMe  bool   `json:"isMe,omitempty"`
+
+	// Quantity of instances
+	// +kubebuilder:validation:Maximum=10
+	// +kubebuilder:validation:Minimum=1
+	Size int32 `json:"size"`
+
+	// Name of the ConfigMap for GuestbookSpec's configuration
+	// +kubebuilder:validation:MaxLength=15
+	// +kubebuilder:validation:MinLength=1
+	ConfigMapName string `json:"configMapName"`
+
+	// +kubebuilder:validation:Enum=Phone;Address;Name
+	Type string `json:"alias,omitempty"`
 }
 
 // GuestbookStatus defines the observed state of Guestbook.
@@ -45,10 +59,17 @@ type GuestbookStatus struct {
 	AvailableReplicas int32 `json:"availableReplicas,omitempty"`
 	AvailablePods     int32 `json:"availablePods,omitempty"`
 	AvailableServices int32 `json:"availableServices,omitempty"`
+
+	// PodName of the active Guestbook node.
+	Active string `json:"active"`
+
+	// PodName of standby Guestbook nodes.
+	Standby string `json:"standby"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:shortName=Cluster
 
 // Guestbook is the Schema for the guestbooks API.
 type Guestbook struct {

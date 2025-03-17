@@ -51,6 +51,15 @@ func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 	// TODO(user): your logic here
 
+	// Get user define Guestbook instance
+	guestbook := &webappv1.Guestbook{}
+	if err := r.Get(ctx, req.NamespacedName, guestbook); err != nil {
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+
+	// create/upate Deployment
+	deploy := &webappsv1.Deployment{}
+
 	return ctrl.Result{}, nil
 }
 
