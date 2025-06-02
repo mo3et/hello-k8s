@@ -20,6 +20,8 @@ import (
 	"context"
 
 	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -53,7 +55,7 @@ func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 	// TODO(user): your logic here
 
-	// Get user define Guestbook instance
+	// 1. Get user define Guestbook instance
 	guestbook := &webappv1.Guestbook{}
 	if err := r.Get(ctx, req.NamespacedName, guestbook); err != nil {
 		return ctrl.Result{}, client.IgnoreNotFound(err)
@@ -65,9 +67,56 @@ func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 			Name:      guestbook.Name + "-deploy",
 			Namespace: guestbook.Namespace,
 		},
+		Spec: appsv1.DeploymentSpec{
+			Replicas: &guestbook.Spec.ReplicaCount,
+			Selector: &metav1.LabelSelector{
+				MatchLabels: map[string]string{
+					"app": guestbook.Name,
+				},
+			},
+			Template: corev1.PodTemplateSpec{
+				ObjectMeta: metav1.ObjectMeta{
+					Labels: map[string]string{
+						"app": guestbook.Name,
+					},
+				},
+				Spec: corev1.PodSpec{
+					Containers: []corev1.Container{{
+						Name:  "web",
+						Image: guestbook.Spec.Image,
+					}},
+				},
+			},
+		},
+	}
+
+	// 2. Create or update Deployment
+	if err := r.CreateOrUpdate(ctx, deploy); err != nil {
+		return ctrl.Result{}, err
+	}
+
+	// 3. update status
+	guestbook.Status.AvailableReplicas = deploy.Status.AvailableReplicas
+	if err := r.Status().Update(ctx, guestbook); err != nil {
+		return ctrl.Result{}, err
 	}
 
 	return ctrl.Result{}, nil
+}
+
+func (r *GuestbookReconciler) CreateOrUpdate(ctx context.Context, obj client.Object, opts ...client.PatchOption) error {
+	existing := obj.DeepCopyObject().(client.Object)
+	key := client.ObjectKeyFromObject(obj)
+	if err := r.Get(ctx, key, existing); err != nil {
+		if apierrors.IsNotFound(err) {
+			return r.Create(ctx, obj)
+		}
+		return err
+	}
+
+	obj.SetResourceVersion(existing.GetResourceVersion())
+
+	return r.Update(ctx, obj)
 }
 
 // SetupWithManager sets up the controller with the Manager.

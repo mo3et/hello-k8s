@@ -1,0 +1,7 @@
+apiVersion: webapp.operator.demo/v1
+kind: Guestbook
+metadata:
+  name: guestbook-sample
+spec:
+  replicaCount: 2
+  image: nginx:alpine

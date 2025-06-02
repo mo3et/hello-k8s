@@ -31,8 +31,9 @@ type GuestbookSpec struct {
 	// Foo is an example field of Guestbook. Edit guestbook_types.go to remove/update
 	// Foo      string `json:"foo,omitempty"`
 
-	Replicas int32  `json:"replicas,omitempty"`
-	Image    string `json:"image,omitempty"`
+	ReplicaCount int32  `json:"replicaCount"`
+	Replicas     int32  `json:"replicas,omitempty"`
+	Image        string `json:"image,omitempty"`
 
 	// Hello string `json:"hello,omitempty"`
 	// IsMe  bool   `json:"isMe,omitempty"`
@@ -69,7 +70,7 @@ type GuestbookStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:shortName=Cluster
+// +kubebuilder:resource:shortName=cluster
 
 // Guestbook is the Schema for the guestbooks API.
 type Guestbook struct {
