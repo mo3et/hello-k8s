@@ -8,4 +8,14 @@ layout:
 - go.kubebuilder.io/v4
 projectName: memcached-operator
 repo: github.com/mo3et/hello-k8s/memcached-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: example.com
+  group: cache
+  kind: Memcached
+  path: github.com/mo3et/hello-k8s/memcached-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"
