@@ -1,0 +1,5 @@
+```mermaid
+graph LR
+A[Client] -->|Request| B[Server]
+B -->|Response| A
+```
